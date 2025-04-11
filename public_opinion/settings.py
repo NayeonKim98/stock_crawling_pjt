@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'crawlings',
+    'accounts',
     'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Comment, CommentAnalysis
 from .crawling import crawl_and_save_comments
 
+
 # 검색 입력 처리용 (폼에서 POST할 때만 사용)
 def index(request):
     if request.method == 'POST':

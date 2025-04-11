@@ -1,37 +1,60 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>{{ user.username }}님의 관심 종목</h2>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
 
-  <form method="POST">
-    {% csrf_token %}
-    {{ form }}
-    <button type="submit">추가</button>
-  </form>
+      <!-- 관심 종목 제목 -->
+      <h2 class="fw-bold mb-4 text-center text-primary">
+        📌 {{ user.username }}님의 관심 종목
+      </h2>
 
-  <hr>
+      <!-- 관심 종목 추가 폼 -->
+      <div class="card p-4 shadow-sm mb-4" style="background-color: #e3f2fd;">
+        <form method="POST" class="row g-2 align-items-center">
+          {% csrf_token %}
+          
+          <div class="col-md-9">
+            <label for="id_company_name" class="form-label visually-hidden">회사명</label>
+            {{ form.company_name }}
+          </div>
+          
+          <div class="col-md-3">
+            <button type="submit" class="btn btn-primary w-100">➕ 추가</button>
+          </div>
+        </form>
+      </div>
 
-  {% if user_stocks %}
-  <ul>
-    {% for stock in user_stocks %}
-      <li>
-        <a href="{% url 'crawlings:detail' stock.company_name %}">
-          {{ stock.company_name }}
-        </a>
-        <a href="{% url 'accounts:delete_stock' stock.pk %}">❌ 삭제</a>
-      </li>
-    {% endfor %}
-  </ul>
-  {% else %}
-    <p>😢 관심 종목이 아직 없습니다.</p>
-  {% endif %}
-
-  {% if messages %}
-    <ul>
+      <!-- 메시지 출력 -->
+      {% if messages %}
         {% for message in messages %}
-        <li style="color:red">{{ message }}</li>
+          <div class="alert alert-primary text-center" role="alert">
+            {{ message }}
+          </div>
         {% endfor %}
-    </ul>
-    {% endif %}
-    
+      {% endif %}
+
+      <!-- 관심 종목 리스트 -->
+      {% if user_stocks %}
+        <ul class="list-group">
+          {% for stock in user_stocks %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <a href="{% url 'crawlings:detail' stock.company_name %}" class="text-decoration-none fw-bold text-dark">
+                {{ stock.company_name }}
+              </a>
+              <a href="{% url 'accounts:delete_stock' stock.pk %}" class="btn btn-outline-primary btn-sm">
+                ❌ 삭제
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <div class="text-center text-muted mt-4">
+          😢 관심 종목이 아직 없습니다.
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
 {% endblock %}

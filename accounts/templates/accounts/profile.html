@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>{{ user.username }}님의 관심 종목</h2>
+
+  <form method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">추가</button>
+  </form>
+
+  <hr>
+
+  {% if user_stocks %}
+  <ul>
+    {% for stock in user_stocks %}
+      <li>
+        <a href="{% url 'crawlings:detail' stock.company_name %}">
+          {{ stock.company_name }}
+        </a>
+        <a href="{% url 'accounts:delete_stock' stock.pk %}">❌ 삭제</a>
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>😢 관심 종목이 아직 없습니다.</p>
+  {% endif %}
+
+  {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li style="color:red">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    
+{% endblock %}

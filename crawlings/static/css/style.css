@@ -1,0 +1,36 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
+
+* {
+    font-family: noto-sans;
+}
+
+pre {
+    font-size: 1rem;
+    font-family: noto-sans;
+    white-space: pre-wrap;
+}
+
+nav {
+    background-color: #004488;
+    padding: 10px;
+}
+nav ul {
+    display: flex;
+    gap: 15px;
+    list-style: none;
+}
+nav ul li a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+nav ul li a:hover {
+    text-decoration: underline;
+}

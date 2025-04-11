@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>회원가입</h2>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">가입</button>
+  </form>
+
+  {% if form.errors %}
+    <ul>
+      {% for field, errors in form.errors.items %}
+        {% for error in errors %}
+          <li style="color:red">{{ error }}</li>
+        {% endfor %}
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}
